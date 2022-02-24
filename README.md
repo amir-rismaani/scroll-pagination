@@ -1,4 +1,5 @@
 # scroll-pagination
+Vue infinit scroll pagination
 
 ## Project setup
 ```
