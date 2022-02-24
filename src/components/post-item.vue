@@ -18,15 +18,15 @@ export default {
 
 <style lang="sass" >
 .post
-    text-align: left
-    background-color: white
-    padding: 1rem
-    border-radius: 1rem
-    margin: 1rem 0
+  text-align: left
+  background-color: white
+  padding: 1rem
+  border-radius: .5rem
+  margin: 1rem 0
 
-    &__title
-        font-size: 2rem
+  &__title
+    font-size: 2rem
 
-    &__body
-        font-size: 1.5rem
+  &__body
+    font-size: 1.5rem
 </style>
