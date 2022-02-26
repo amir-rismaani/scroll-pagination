@@ -25,8 +25,8 @@ export default {
   margin: 1rem 0
 
   &__title
-    font-size: 2rem
+    font-size: 1.8rem
 
   &__body
-    font-size: 1.5rem
+    font-size: 1.2rem
 </style>

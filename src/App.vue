@@ -1,6 +1,8 @@
 <template>
-  <post-items :posts="posts" />
-  <button @click="loadMorePosts">Read more</button>
+  <div id="infinite-posts">
+    <post-items :posts="posts" />
+  </div>
+  <button v-if="hasPosts" @click="loadMorePosts">Load more</button>
 </template>
 
 <script>
@@ -16,22 +18,38 @@ export default {
     };
 
     let posts = ref([]);
-
+    let hasPosts = ref([true]);
+    let latestPosts = [];
     const loadMorePosts = async () => {
       const res = await fetch(
         `http://jsonplaceholder.typicode.com/posts?_start=${restOptions.start}&_limit=${restOptions.limit}`
       );
-      posts.value = [...posts.value, ...(await res.json())];
-      restOptions.start += restOptions.limit;
+      latestPosts = await res.json();
+      if (latestPosts.length) {
+        posts.value = [...posts.value, ...latestPosts];
+        restOptions.start += restOptions.limit;
+      } else {
+        hasPosts.value = false;
+      }
     };
 
     onMounted(() => {
+      const infinitePostsElem = document.querySelector("#infinite-posts");
+      infinitePostsElem.addEventListener("scroll", () => {
+        if (
+          infinitePostsElem.scrollTop + infinitePostsElem.clientHeight >=
+          infinitePostsElem.scrollHeight
+        ) {
+          loadMorePosts();
+        }
+      });
       loadMorePosts();
     });
 
     return {
       posts,
       loadMorePosts,
+      hasPosts,
     };
   },
 };
@@ -39,7 +57,7 @@ export default {
 
 <style lang="sass">
 body
-  background-color: aliceblue
+  background-color: #00000009
   font-size: 62.5%
 
 #app
