@@ -33,14 +33,14 @@ export default {
       }
     };
 
-    window.onscroll = () => {
+    window.addEventListener("scroll", () => {
       let bottomOfWindow =
         document.documentElement.scrollTop + window.innerHeight ===
         document.documentElement.offsetHeight;
       if (hasPosts.value && bottomOfWindow) {
         loadMorePosts();
       }
-    };
+    });
 
     onMounted(() => {
       const infinitePostsElem = document.querySelector("#infinite-posts");
