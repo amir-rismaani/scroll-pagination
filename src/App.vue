@@ -2,7 +2,7 @@
   <div id="infinite-posts">
     <post-items :posts="posts" />
   </div>
-  <button v-if="hasPosts" @click="loadMorePosts">Load more</button>
+  <!-- <button v-if="hasPosts" @click="loadMorePosts">Load more</button> -->
 </template>
 
 <script>
@@ -30,6 +30,15 @@ export default {
         restOptions.start += restOptions.limit;
       } else {
         hasPosts.value = false;
+      }
+    };
+
+    window.onscroll = () => {
+      let bottomOfWindow =
+        document.documentElement.scrollTop + window.innerHeight ===
+        document.documentElement.offsetHeight;
+      if (hasPosts.value && bottomOfWindow) {
+        loadMorePosts();
       }
     };
 
